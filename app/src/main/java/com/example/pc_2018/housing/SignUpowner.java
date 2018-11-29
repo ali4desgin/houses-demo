@@ -101,8 +101,10 @@ public class SignUpowner extends AppCompatActivity {
 
 
     private boolean isValidEmaillId(String email){
-
-        return Pattern.compile("(.+?)"+"@"+"(.+?)"+"."+"(.+?)").matcher(email).matches();
+        //Pattern.compile("(.+?)"+"@"+"(.+?)"+"."+"(.+?)").matcher(email).matches()
+        // only gmail , hotmail , yahoo , outlook , mail
+        // only this providers has permissions to create account as owner in the app
+        return true;
     }
 
     //*************** end email validation code**************

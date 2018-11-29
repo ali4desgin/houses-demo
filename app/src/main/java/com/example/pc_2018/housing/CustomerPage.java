@@ -78,30 +78,33 @@ public class CustomerPage extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
+                        Intent intent = new Intent(CustomerPage.this, HouseCutomerList.class);
+                        startActivity(intent);
 
-                        Cursor res = mydb.getData();
-                        if (res.getCount() == 0) {
-                            //show message
-                            ShowMessage("Not Available", "No Data Found");
-
-                            return;
-
-                        }
-                        StringBuffer buffer = new StringBuffer();
-                        while (res.moveToNext()) {
-                            buffer.append("ID: " + res.getString(0) + "\n");
-                            buffer.append("Place: " + res.getString(1) + "\n");
-                            buffer.append("HouseName: " + res.getString(2) + "\n");
-                            buffer.append("HouseNumber: " + res.getString(3) + "\n");
-                            buffer.append("Type :" + res.getString(4) + "\n");
-                            buffer.append("price: " + res.getString(5) + "\n");
-                            buffer.append("State: " + res.getString(6) + "\n\n");
-
-                        }
-
-                        // show all data
-
-                        ShowMessage("Houses Table ", buffer.toString());
+//
+//                        Cursor res = mydb.getData();
+//                        if (res.getCount() == 0) {
+//                            //show message
+//                            ShowMessage("Not Available", "No Data Found");
+//
+//                            return;
+//
+//                        }
+//                        StringBuffer buffer = new StringBuffer();
+//                        while (res.moveToNext()) {
+//                            buffer.append("ID: " + res.getString(0) + "\n");
+//                            buffer.append("Place: " + res.getString(1) + "\n");
+//                            buffer.append("HouseName: " + res.getString(2) + "\n");
+//                            buffer.append("HouseNumber: " + res.getString(3) + "\n");
+//                            buffer.append("Type :" + res.getString(4) + "\n");
+//                            buffer.append("price: " + res.getString(5) + "\n");
+//                            buffer.append("State: " + res.getString(6) + "\n\n");
+//
+//                        }
+//
+//                        // show all data
+//
+//                        ShowMessage("Houses Table ", buffer.toString());
 
                     }
 

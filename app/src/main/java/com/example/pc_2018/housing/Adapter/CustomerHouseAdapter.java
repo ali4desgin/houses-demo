@@ -1,4 +1,92 @@
 package com.example.pc_2018.housing.Adapter;
 
-public class CustomerHouseAdapter {
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.pc_2018.housing.EditHouse;
+import com.example.pc_2018.housing.Models.HouseMod;
+import com.example.pc_2018.housing.R;
+import com.example.pc_2018.housing.SendMessage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CustomerHouseAdapter extends ArrayAdapter<HouseMod> {
+
+    private Context mContext;
+    private List<HouseMod> moviesList = new ArrayList<>();
+
+    public CustomerHouseAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<HouseMod> list) {
+        super(context, 0 , list);
+        mContext = context;
+        moviesList = list;
+    }
+
+    @NonNull
+    @Override
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View listItem = convertView;
+        if(listItem == null)
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.customer_house_item,parent,false);
+
+        HouseMod currentHouse = moviesList.get(position);
+
+        ImageView image = (ImageView)listItem.findViewById(R.id.imageView_poster);
+        image.setImageResource(currentHouse.getmImageDrawable());
+
+        TextView name = (TextView) listItem.findViewById(R.id.textView_name);
+        name.setText(currentHouse.getmName());
+
+        Button requestBtn = (Button) listItem.findViewById(R.id.requestBtn);
+        requestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,SendMessage.class);
+                intent.putExtra("id",position);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext,String.valueOf(position),Toast.LENGTH_LONG).show();
+            }
+        });
+//
+//        Button deleteBtn = (Button) listItem.findViewById(R.id.deleteBtn);
+//        Button editButton = (Button) listItem.findViewById(R.id.editBtn);
+//        TextView userLbl = (TextView) listItem.findViewById(R.id.userLbl);
+//        TextView priceLbl = (TextView) listItem.findViewById(R.id.priceLbl);
+//
+//
+//        deleteBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(mContext,String.valueOf(position),Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//
+//        editButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext,EditHouse.class);
+//                intent.putExtra("id",position);
+//                mContext.startActivity(intent);
+//                Toast.makeText(mContext,String.valueOf(position),Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+        TextView release = (TextView) listItem.findViewById(R.id.textView_release);
+        release.setText(currentHouse.getmRelease());
+
+        return listItem;
+    }
 }

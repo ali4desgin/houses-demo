@@ -7,6 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
     HousingDataBase mydb;
@@ -16,6 +24,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+
+
+
+
+
         mydb = new HousingDataBase(this);
         Button btnloginall = (Button) findViewById(com.example.pc_2018.housing.R.id.button);
         Button btnregisterall = (Button) findViewById(com.example.pc_2018.housing.R.id.button2);
@@ -53,30 +70,33 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-
-                        Cursor res = mydb.getData();
-                        if (res.getCount() == 0) {
-                            //show message
-                            ShowMessage("Not Available", "No Data Found");
-
-                            return;
-
-                        }
-                        StringBuffer buffer = new StringBuffer();
-                        while (res.moveToNext()) {
-                            buffer.append("ID: " + res.getString(0) + "\n");
-                            buffer.append("Place: " + res.getString(1) + "\n");
-                            buffer.append("OwnerName: " + res.getString(2) + "\n");
-                            buffer.append("HouseNumber: " + res.getString(3) + "\n");
-                            buffer.append("Type :" + res.getString(4) + "\n");
-                            buffer.append("price: " + res.getString(5) + "\n");
-                            buffer.append("State: " + res.getString(6) + "\n\n");
-
-                        }
-
-                        // show all data
-
-                        ShowMessage("Houses Table ", buffer.toString());
+                        Intent intent = new Intent(MainActivity.this,
+                                HouseCutomerList.class);
+                        intent.putExtra("visitor","1");
+                        startActivity(intent);
+//                        Cursor res = mydb.getData();
+//                        if (res.getCount() == 0) {
+//                            //show message
+//                            ShowMessage("Not Available", "No Data Found");
+//
+//                            return;
+//
+//                        }
+//                        StringBuffer buffer = new StringBuffer();
+//                        while (res.moveToNext()) {
+//                            buffer.append("ID: " + res.getString(0) + "\n");
+//                            buffer.append("Place: " + res.getString(1) + "\n");
+//                            buffer.append("OwnerName: " + res.getString(2) + "\n");
+//                            buffer.append("HouseNumber: " + res.getString(3) + "\n");
+//                            buffer.append("Type :" + res.getString(4) + "\n");
+//                            buffer.append("price: " + res.getString(5) + "\n");
+//                            buffer.append("State: " + res.getString(6) + "\n\n");
+//
+//                        }
+//
+//                        // show all data
+//
+//                        ShowMessage("Houses Table ", buffer.toString());
 
                     }
 

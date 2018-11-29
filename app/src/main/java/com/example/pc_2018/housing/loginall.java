@@ -1,8 +1,10 @@
 package com.example.pc_2018.housing;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.http.RequestQueue;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,13 @@ public class loginall extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginall);
+
+
+
+        final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+
 
         // create a instance of SQLite Database ()
         loginDataBaseAdapter=new LoginDataBaseAdapter(this);
@@ -39,6 +48,9 @@ public class loginall extends AppCompatActivity {
         btncustomer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+
+
+
                 final Dialog dialog = new Dialog(loginall.this);
                 dialog.setContentView(R.layout.activity_login_customer);
                 dialog.setTitle("Login customer");
@@ -57,32 +69,9 @@ public class loginall extends AppCompatActivity {
                     //**********
 
                     public void onClick(View v) {
-                        // get The User name and Password
-                        String nameCustomer=editTextName.getText().toString();
-                        String passwordNeedy=editTextPassword.getText().toString();
 
-                        // fetch the Password form database for respective user name
-                        String storedPassword=loginDataBaseAdapter.getSinlgeEntryNeedy(nameCustomer);
-
-
-
-                        // check if the Stored password matches with  Password entered by user
-                        if(passwordNeedy.equals(storedPassword))
-                        {
-                            Toast.makeText(loginall.this, " Login Successfull", Toast.LENGTH_LONG).show();
-                            
-                            // To save the user Id into sharedPrefrences
-                            pref.putInt("userID", loginDataBaseAdapter.getId());
-                            pref.apply();
-
-                            dialog.dismiss();
-                            startActivity(new Intent(loginall.this,
-                                    CustomerPage.class));
-                        }
-                        else
-                        {
-                            Toast.makeText(loginall.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
-                        }
+                        final String nameCustomer=editTextName.getText().toString();
+                        final String passwordNeedy=editTextPassword.getText().toString();
 
 
                     }

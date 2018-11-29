@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HOUSING</string>
+    <string name="preference_file_key">preference_file_key</string>
+    <string name="confirm">Confirm</string>
+    <string name="textview">TextView</string>
+    <string name="this_is_test_message">This is test message</string>
 </resources>
