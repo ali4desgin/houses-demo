@@ -1,43 +1,55 @@
 package com.example.pc_2018.housing.Models;
 
+import android.graphics.Bitmap;
+
 public class HouseMod {
 
         // Store the id of the  movie poster
-        private int mImageDrawable;
-        // Store the name of the movie
-        private String mName;
-        // Store the release date of the movie
-        private String mRelease;
+        private int id;
 
-        // Constructor that is used to create an instance of the Movie object
-        public HouseMod(int mImageDrawable, String mName, String mRelease) {
-            this.mImageDrawable = mImageDrawable;
-            this.mName = mName;
-            this.mRelease = mRelease;
-        }
+        private String ownername;
 
-        public int getmImageDrawable() {
-            return mImageDrawable;
-        }
 
-        public void setmImageDrawable(int mImageDrawable) {
-            this.mImageDrawable = mImageDrawable;
-        }
+        private String place;
 
-        public String getmName() {
-            return mName;
-        }
+        private String hpuseNumber;
 
-        public void setmName(String mName) {
-            this.mName = mName;
-        }
 
-        public String getmRelease() {
-            return mRelease;
-        }
+        private Bitmap image;
 
-        public void setmRelease(String mRelease) {
-            this.mRelease = mRelease;
-        }
 
+        private  String price;
+
+    public HouseMod(int id, String ownername, String place, String hpuseNumber, Bitmap image,String price) {
+        this.id = id;
+        this.price = price;
+        this.ownername = ownername;
+        this.place = place;
+        this.hpuseNumber = hpuseNumber;
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getOwnername() {
+        return ownername;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public String getHpuseNumber() {
+        return hpuseNumber;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
 }

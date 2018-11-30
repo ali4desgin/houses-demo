@@ -1,7 +1,9 @@
 package com.example.pc_2018.housing;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,10 +28,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+       SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
 
 
 
+        String userid = String.valueOf(sharedPref.getString("userid","0")) ;
+
+
+        String user_active = String.valueOf(sharedPref.getString("user_active","no")) ;
+        String user_type = String.valueOf(sharedPref.getString("user_type","")) ;
+        if(!userid.equals("0") && user_active.equals("yes")){
+
+//            Intent intent3 = new Intent(MainActivity.this,OwnerPage.class);
+//            startActivity(intent3);
+            Intent intent;
+            if(user_type.equals("owner")){
+                intent = new Intent(MainActivity.this,OwnerPage.class);
+                startActivity(intent);
+            }else if(user_type.equals("customer")){
+                intent = new Intent(MainActivity.this,CustomerPage.class);
+                startActivity(intent);
+            }
+
+        }
 
 
 

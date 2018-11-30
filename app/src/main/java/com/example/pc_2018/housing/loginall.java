@@ -7,10 +7,24 @@ import android.content.SharedPreferences;
 import android.net.http.RequestQueue;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class loginall extends AppCompatActivity {
 
@@ -70,8 +84,82 @@ public class loginall extends AppCompatActivity {
 
                     public void onClick(View v) {
 
-                        final String nameCustomer=editTextName.getText().toString();
-                        final String passwordNeedy=editTextPassword.getText().toString();
+                        // get The User name and Password
+                        final String name=editTextName.getText().toString();
+                        final String password=editTextPassword.getText().toString();
+
+                        // fetch the Password form database for respective user name
+                        com.android.volley.RequestQueue queue = Volley.newRequestQueue(loginall.this);
+                        String url = Const.signin;
+
+                        // Request a string response from the provided URL.
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+
+                                        //
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            if (jsonObject.getBoolean("response")){
+
+
+
+//                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.getString("userid"))).apply();
+//                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
+                                                //Toast.makeText(loginall.this,String.valueOf(jsonObject.getString("user")),Toast.LENGTH_LONG).show();
+                                                JSONObject user = new JSONObject(jsonObject.getString("user"));
+                                                // Toast.makeText(loginall.this,String.valueOf(user.getString("id")),Toast.LENGTH_LONG).show();
+                                                sharedPref.edit().putString("userid",user.getString("id")).apply();
+                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
+//                                                Log.i("jsonObject",jsonObject.toString());
+//                                                Log.i("user",user.toString());
+//
+                                                if(user.getString("isOwner").equals("yes")){
+                                                    sharedPref.edit().putString("user_type", String.valueOf("owner")).apply();
+                                                    Intent intent = new Intent(loginall.this,OwnerPage.class);
+                                                    startActivity(intent);
+                                                }else{
+
+                                                    sharedPref.edit().putString("user_type", String.valueOf("customer")).apply();
+                                                    Intent intent = new Intent(loginall.this,CustomerPage.class);
+                                                    startActivity(intent);
+                                                }
+                                                //    Toast.makeText(loginall.this,String.valueOf(jsonObject.getString("message")),Toast.LENGTH_LONG).show();
+
+
+                                            }else{
+
+                                                String message = jsonObject.getString("message");
+                                                Toast.makeText(loginall.this,message,Toast.LENGTH_LONG).show();
+
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
+
+
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        }){
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+
+                                Map<String , String> map = new HashMap<>();
+                                map.put("username",name);
+                                map.put("password",password);
+                                return map;
+                            }
+                        };
+
+                        // Add the request to the RequestQueue.
+                        queue.add(stringRequest);
 
 
                     }
@@ -90,6 +178,12 @@ public class loginall extends AppCompatActivity {
             public void onClick(View v) {
 
 
+
+
+
+
+
+
                 final Dialog dialog = new Dialog(loginall.this);
                 dialog.setContentView(R.layout.activity_login_owner);
                 dialog.setTitle("Login owner");
@@ -106,24 +200,84 @@ public class loginall extends AppCompatActivity {
 
                     public void onClick(View v) {
                         // get The User name and Password
-                        String name=editTextName.getText().toString();
-                        String password=editTextPassword.getText().toString();
+                        final String name=editTextName.getText().toString();
+                        final String password=editTextPassword.getText().toString();
 
                         // fetch the Password form database for respective user name
-                        String storedPassword=loginDataBaseAdapter2.getSinlgeEntry(name);
+                        com.android.volley.RequestQueue queue = Volley.newRequestQueue(loginall.this);
+                        String url = Const.signin;
 
-                        // check if the Stored password matches with  Password entered by user
-                        if(password.equals(storedPassword))
-                        {
-                            Toast.makeText(loginall.this, " Login Successfull", Toast.LENGTH_LONG).show();
-                            dialog.dismiss();
-                            startActivity(new Intent(loginall.this,
-                                    OwnerPage.class));
-                        }
-                        else
-                        {
-                            Toast.makeText(loginall.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
-                        }
+                        // Request a string response from the provided URL.
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+
+                                     //
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            if (jsonObject.getBoolean("response")){
+
+
+
+//                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.getString("userid"))).apply();
+//                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
+                                                //Toast.makeText(loginall.this,String.valueOf(jsonObject.getString("user")),Toast.LENGTH_LONG).show();
+                                               JSONObject user = new JSONObject(jsonObject.getString("user"));
+                                               // Toast.makeText(loginall.this,String.valueOf(user.getString("id")),Toast.LENGTH_LONG).show();
+                                                sharedPref.edit().putString("userid",user.getString("id")).apply();
+                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
+//                                                Log.i("jsonObject",jsonObject.toString());
+//                                                Log.i("user",user.toString());
+//
+                                                if(user.getString("isOwner").equals("yes")){
+                                                    sharedPref.edit().putString("user_type", String.valueOf("owner")).apply();
+                                                    Intent intent = new Intent(loginall.this,OwnerPage.class);
+                                                    startActivity(intent);
+                                                }else{
+
+                                                    sharedPref.edit().putString("user_type", String.valueOf("customer")).apply();
+                                                    Intent intent = new Intent(loginall.this,CustomerPage.class);
+                                                    startActivity(intent);
+                                                }
+                                             //    Toast.makeText(loginall.this,String.valueOf(jsonObject.getString("message")),Toast.LENGTH_LONG).show();
+
+
+                                            }else{
+
+                                                String message = jsonObject.getString("message");
+                                                Toast.makeText(loginall.this,message,Toast.LENGTH_LONG).show();
+
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
+
+
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        }){
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+
+                                Map<String , String> map = new HashMap<>();
+                                map.put("username",name);
+                                map.put("password",password);
+                                return map;
+                            }
+                        };
+
+                        // Add the request to the RequestQueue.
+                        queue.add(stringRequest);
+
+
+
                     }
                 });
 

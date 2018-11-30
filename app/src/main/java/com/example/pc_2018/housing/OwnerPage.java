@@ -1,7 +1,9 @@
 package com.example.pc_2018.housing;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,10 +21,12 @@ public class OwnerPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_page);
-
+        final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         //Button MessageInbox = (Button) findViewById(com.example.pc_2018.housing.R.id.button8);
         Button AddHouse = (Button) findViewById(com.example.pc_2018.housing.R.id.button9);
 
+        Button Logout = (Button) findViewById(R.id.Logout);
 //        Button updateHouse = (Button) findViewById(com.example.pc_2018.housing.R.id.button10);
 //        Button deleteHouse = (Button) findViewById(com.example.pc_2018.housing.R.id.button11);
 
@@ -43,6 +47,18 @@ public class OwnerPage extends AppCompatActivity {
 
 
 
+
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                sharedPref.edit().clear().apply();
+                Intent intent = new Intent(OwnerPage.this, MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         AddHouse.setOnClickListener(new View.OnClickListener() {

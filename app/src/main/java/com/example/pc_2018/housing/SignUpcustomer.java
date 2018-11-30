@@ -95,6 +95,18 @@ public class SignUpcustomer extends AppCompatActivity {
 
                         //userName, password,email,phone,FirstName,lastName
 
+
+
+
+
+
+
+
+
+
+
+
+
                         RequestQueue queue = Volley.newRequestQueue(SignUpcustomer.this);
                         String url = Const.signup;
 
@@ -105,12 +117,15 @@ public class SignUpcustomer extends AppCompatActivity {
                                     public void onResponse(String response) {
 
 
+
                                         try {
                                             JSONObject jsonObject = new JSONObject(response);
                                             if (jsonObject.getBoolean("response")){
 
-                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.get("userid")));
-                                                sharedPref.edit().putString("user_active", String.valueOf("yes"));
+                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.get("userid"))).apply();
+                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
+                                                sharedPref.edit().putString("user_type", String.valueOf("customer")).apply();
+
 
                                                 Intent intent = new Intent(SignUpcustomer.this,CustomerPage.class);
                                                 startActivity(intent);
@@ -128,10 +143,14 @@ public class SignUpcustomer extends AppCompatActivity {
                                         //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
 
 
+
+
+
                                     }
                                 }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+
 
                             }
                         }){

@@ -127,4 +127,22 @@
         android:layout_alignTop="@+id/button12"
         android:text="uplaod image" />
 
+    <RelativeLayout
+        android:id="@+id/LoadingPro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#5c5656"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="193dp"
+            android:background="@android:color/background_light" />
+    </RelativeLayout>
+
 </RelativeLayout>
