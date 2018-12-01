@@ -1,13 +1,11 @@
 package com.example.pc_2018.housing;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,11 +25,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.pc_2018.housing.R.layout.owner_house_item;
 
 public class HouseList extends AppCompatActivity {
 
@@ -57,9 +53,6 @@ public class HouseList extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(HouseList.this);
         String url = Const.houses;
 
-        // Request a string response from the provided URL.
-
-      //  moviesList.add(new HouseMod(1, "ali", "", "", null));
 
 
                  StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -169,9 +162,7 @@ public class HouseList extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-//        while( moviesList.size() == 0){
 //
-//        }
 
 
 

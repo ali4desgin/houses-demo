@@ -39,7 +39,6 @@ import java.util.Map;
 
 public class AddHouse extends AppCompatActivity {
 
-    HousingDataBase mydb;
 
 
     // EditText id;
@@ -69,7 +68,6 @@ public class AddHouse extends AppCompatActivity {
         sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        mydb=new HousingDataBase(this);
 
 
 
@@ -121,90 +119,6 @@ public class AddHouse extends AppCompatActivity {
                 }
 
 
-
-                // Request a string response from the provided URL.
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//
-//
-//                                try {
-//                                    JSONObject jsonObject = new JSONObject(response);
-//                                    if (jsonObject.getBoolean("response")){
-//
-//                                        String message = jsonObject.getString("message");
-//                                        Toast.makeText(AddHouse.this,message,Toast.LENGTH_LONG).show();
-//
-//                                    }else{
-//
-//                                        String message = jsonObject.getString("message");
-//                                        Toast.makeText(AddHouse.this,message,Toast.LENGTH_LONG).show();
-//
-//                                    }
-//
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//
-//
-//                            }
-//                        }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//
-//                    }
-//                }){
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        String userid = String.valueOf(sharedPref.getString("userid","0")) ;
-//
-//
-//                        String image = getStringImage(bitmap);
-//                        Map<String , String> map = new HashMap<>();
-//                        map.put("house_number", HouseName.getText().toString());
-//                        map.put("place", Place.getText().toString());
-//                        map.put("ownerID",userid);
-//                        map.put("price",Price.getText().toString());
-//                        map.put("type",Type.getText().toString());
-//                        map.put("state", State.getText().toString());
-//                        map.put("image", image);
-//                        return map;
-//                    }
-//                };
-//
-//                {
-//                    int socketTimeout = 30000;
-//                    RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-//                    stringRequest.setRetryPolicy(policy);
-//                    RequestQueue requestQueue = Volley.newRequestQueue(AddHouse.this);
-//                    requestQueue.add(stringRequest);
-//                }
-
-
-                // Add the request to the RequestQueue.
-              //  queue.add(stringRequest);
-
-
-//                boolean isInserted = mydb.insertContact(Place.getText().toString(), HouseName.getText().toString(),
-//
-//                        HouseNumber.getText().toString(),Type.getText().toString(), Price.getText().toString(),
-//
-//                        State.getText().toString());
-//
-//                if (isInserted = true) {
-//
-//                    Toast.makeText(AddHouse.this, "Done", Toast.LENGTH_LONG).show();
-//
-//                    startActivity(new Intent(AddHouse.this,
-//                            OwnerPage.class));
-//
-//                }
-//
-//                else
-//                    Toast.makeText(AddHouse.this, "Could Not Add", Toast.LENGTH_LONG).show();
-//                startActivity(new Intent(AddHouse.this,
-//                        OwnerPage.class));
 
             }
         });
@@ -271,12 +185,7 @@ public class AddHouse extends AppCompatActivity {
                     }
                 }) {
 
-            /*
-             * If you want to add more parameters with the image
-             * you can do it here
-             * here we have only one parameter with the image
-             * which is tags
-             * */
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 String userid = String.valueOf(sharedPref.getString("userid","0")) ;

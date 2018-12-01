@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.view.KeyEvent;
-import android.view.View.OnKeyListener;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,18 +30,22 @@ public class SignUpcustomer extends AppCompatActivity {
 
     EditText editTextUserName,editTextPassword,editTextConfirmPassword,editTextemail,editTextphone,editTextFirstName,editTextlastName;
     Button btnCreateAccount;
-    LoginDataBaseAdapter loginDataBaseAdapter;
+     SharedPreferences sharedPref;
 
+     String userName ;
+    String password ;
+    String confirmPassword ;
+
+     String email ;
+     String phone;
+     String FirstName;
+    String lastName ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_upcustomer);
-        final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+        sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-
-        // get Instance  of Database Adapter
-        loginDataBaseAdapter=new LoginDataBaseAdapter(this);
-        loginDataBaseAdapter=loginDataBaseAdapter.open();
 
         // Get Refferences of Views
         editTextUserName=(EditText)findViewById(com.example.pc_2018.housing.R.id.editTextUserName2);
@@ -67,14 +69,14 @@ public class SignUpcustomer extends AppCompatActivity {
 
 
 
-                final String userName = editTextUserName.getText().toString();
-                String password = editTextPassword.getText().toString();
-                String confirmPassword = editTextConfirmPassword.getText().toString();
+                  userName = editTextUserName.getText().toString();
+                 password = editTextPassword.getText().toString();
+                 confirmPassword = editTextConfirmPassword.getText().toString();
 
-                final String email = editTextemail.getText().toString();
-                final String phone = editTextphone.getText().toString();
-                final String FirstName = editTextFirstName.getText().toString();
-                final String lastName = editTextlastName.getText().toString();
+                  email = editTextemail.getText().toString();
+                  phone = editTextphone.getText().toString();
+                  FirstName = editTextFirstName.getText().toString();
+                  lastName = editTextlastName.getText().toString();
 
 
 
@@ -91,7 +93,7 @@ public class SignUpcustomer extends AppCompatActivity {
                     // Save the Data in Database
                     //************* email @ condtions
                     if(isValidEmaillId(email.trim())){
-                        //Toast.makeText(getApplicationContext(), "Valid Email Address.", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "Valid Email Address.", Toast.LENGTH_SHORT).show();
 
                         //userName, password,email,phone,FirstName,lastName
 
@@ -101,84 +103,78 @@ public class SignUpcustomer extends AppCompatActivity {
 
 
 
+                        createUser();
 
 
 
+//
+//                        RequestQueue queue = Volley.newRequestQueue(SignUpcustomer.this);
+//                        String url = Const.signup;
+//
+//                        // Request a string response from the provided URL.
+//                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+//                                new Response.Listener<String>() {
+//                                    @Override
+//                                    public void onResponse(String response) {
+//
+//
+//
+//                                        try {
+//                                            JSONObject jsonObject = new JSONObject(response);
+//                                            if (jsonObject.getBoolean("response")){
+//
+//                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.get("userid"))).apply();
+//                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
+//                                                sharedPref.edit().putString("user_type", String.valueOf("customer")).apply();
+//
+//
+//                                                Intent intent = new Intent(SignUpcustomer.this,CustomerPage.class);
+//                                                startActivity(intent);
+//
+//                                            }else{
+//
+//                                                String message = jsonObject.getString("message");
+//                                                Toast.makeText(SignUpcustomer.this,message,Toast.LENGTH_LONG).show();
+//
+//                                            }
+//
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                        //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
+//
+//
+//
+//
+//
+//                                    }
+//                                }, new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//
+//
+//                            }
+//                        }){
+//                            @Override
+//                            protected Map<String, String> getParams() throws AuthFailureError {
+//
+//                                Map<String , String> map = new HashMap<>();
+//                                map.put("email",email);
+//                                map.put("username",userName);
+//                                map.put("phone",phone);
+//                                map.put("placenumber","");
+//                                map.put("firstname",FirstName);
+//                                map.put("lastname",lastName);
+//                                map.put("isOwner", "no");
+//                                return map;
+//                            }
+//                        };
+//
+//                        // Add the request to the RequestQueue.
+//                        queue.add(stringRequest);
+//
 
 
-
-                        RequestQueue queue = Volley.newRequestQueue(SignUpcustomer.this);
-                        String url = Const.signup;
-
-                        // Request a string response from the provided URL.
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                                new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-
-
-
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(response);
-                                            if (jsonObject.getBoolean("response")){
-
-                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.get("userid"))).apply();
-                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
-                                                sharedPref.edit().putString("user_type", String.valueOf("customer")).apply();
-
-
-                                                Intent intent = new Intent(SignUpcustomer.this,CustomerPage.class);
-                                                startActivity(intent);
-
-                                            }else{
-
-                                                String message = jsonObject.getString("message");
-                                                Toast.makeText(SignUpcustomer.this,message,Toast.LENGTH_LONG).show();
-
-                                            }
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
-
-
-
-
-
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-
-                            }
-                        }){
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-
-                                Map<String , String> map = new HashMap<>();
-                                map.put("email",email);
-                                map.put("username",userName);
-                                map.put("phone",phone);
-                                map.put("firstname",FirstName);
-                                map.put("lastname",lastName);
-                                map.put("isOwner", "no");
-                                return map;
-                            }
-                        };
-
-                        // Add the request to the RequestQueue.
-                        queue.add(stringRequest);
-
-
-
-//                        loginDataBaseAdapter.insertEntry(userName, password,email,phone,FirstName,lastName);
-//                        Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
-//                        startActivity(new Intent(SloginDataBaseAdapter.insertEntry(userName, password,email,phone,FirstName,lastName);
-////                        Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
-////                        startActivity(new Intent(SignUpcustomer.tignUpcustomer.this,
-//                                CustomerPage.class));
 
                     }else{
                         Toast.makeText(getApplicationContext(), "InValid Email Address.", Toast.LENGTH_SHORT).show();
@@ -208,5 +204,70 @@ public class SignUpcustomer extends AppCompatActivity {
         return Pattern.compile("(.+?)"+"@"+"(.+?)"+"."+"com").matcher(email).matches();
     }
 
+
+    private  void createUser(){
+
+
+        RequestQueue queue = Volley.newRequestQueue(SignUpcustomer.this);
+        String url = Const.signup;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.getBoolean("response")){
+
+                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.getString("userid"))).apply();
+                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();;
+                                sharedPref.edit().putString("user_type", String.valueOf("customer")).apply();;
+
+                                Intent intent = new Intent(SignUpcustomer.this,CustomerPage.class);
+                                startActivity(intent);
+
+                            }else{
+
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(SignUpcustomer.this,message,Toast.LENGTH_LONG).show();
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String , String> map = new HashMap<>();
+                map.put("email",email);
+                map.put("username",userName);
+                map.put("password",password);
+                map.put("phone",phone);
+                map.put("firstname",FirstName);
+                map.put("lastname",lastName);
+                //  map.put("placenumber",lastName);
+                map.put("isOwner", "no");
+                return map;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+
+    }
     //*************** end email validation code**************
 }

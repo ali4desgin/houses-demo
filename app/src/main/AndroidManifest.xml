@@ -22,8 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".loginall" />
-        <activity android:name=".LoginOwner" />
-        <activity android:name=".loginCustomer" />
         <activity android:name=".SignUpAll" />
         <activity android:name=".SignUpowner" />
         <activity android:name=".SignUpcustomer" />
@@ -31,10 +29,7 @@
         <activity android:name=".CustomerPage" />
         <activity android:name=".SendMessage" android:parentActivityName=".HouseCutomerList"/>
         <activity android:name=".MyAccount" android:parentActivityName=".CustomerPage"/>
-        <activity android:name=".MessageInbox" />
         <activity android:name=".AddHouse" android:parentActivityName=".OwnerPage"/>
-        <activity android:name=".UpdateHouse" android:parentActivityName=".HouseList"/>
-        <activity android:name=".DeleteHouse" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

@@ -17,7 +17,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class CustomerPage extends AppCompatActivity {
 
-    HousingDataBase mydb;
     Button btnShow;
 
     @Override
@@ -25,7 +24,6 @@ public class CustomerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_page);
 
-        mydb = new HousingDataBase(this);
 
         Button btnSendMessage = (Button) findViewById(R.id.button13);
         Button btnMyAccount = (Button) findViewById(R.id.button14);
@@ -81,31 +79,6 @@ public class CustomerPage extends AppCompatActivity {
                         Intent intent = new Intent(CustomerPage.this, HouseCutomerList.class);
                         startActivity(intent);
 
-//
-//                        Cursor res = mydb.getData();
-//                        if (res.getCount() == 0) {
-//                            //show message
-//                            ShowMessage("Not Available", "No Data Found");
-//
-//                            return;
-//
-//                        }
-//                        StringBuffer buffer = new StringBuffer();
-//                        while (res.moveToNext()) {
-//                            buffer.append("ID: " + res.getString(0) + "\n");
-//                            buffer.append("Place: " + res.getString(1) + "\n");
-//                            buffer.append("HouseName: " + res.getString(2) + "\n");
-//                            buffer.append("HouseNumber: " + res.getString(3) + "\n");
-//                            buffer.append("Type :" + res.getString(4) + "\n");
-//                            buffer.append("price: " + res.getString(5) + "\n");
-//                            buffer.append("State: " + res.getString(6) + "\n\n");
-//
-//                        }
-//
-//                        // show all data
-//
-//                        ShowMessage("Houses Table ", buffer.toString());
-
                     }
 
 
@@ -113,17 +86,6 @@ public class CustomerPage extends AppCompatActivity {
         );   }
 
 //method view
-
-    public void ShowMessage(String title,String message )
-
-    {
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setCancelable(true);
-        alertDialogBuilder.setTitle(title);
-        alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.show();
-    }
 
     //**********
 }

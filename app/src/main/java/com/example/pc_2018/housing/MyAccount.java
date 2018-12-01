@@ -27,7 +27,6 @@ import java.util.Map;
 
 public class MyAccount extends AppCompatActivity {
 
-    LoginDataBaseAdapter mydb;
 
 
     EditText ID;
@@ -50,8 +49,6 @@ public class MyAccount extends AppCompatActivity {
         setContentView(R.layout.activity_my_account);
         final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        mydb=new LoginDataBaseAdapter(this);
-        mydb=mydb.open();
 
         Button logout  = (Button) findViewById(R.id.logout);
 
@@ -188,13 +185,11 @@ public class MyAccount extends AppCompatActivity {
                      protected Map<String, String> getParams() throws AuthFailureError {
 
                          Map<String , String> map = new HashMap<>();
-                         map.put("id",sharedPref.getString("userid","14"));
+                         map.put("id",sharedPref.getString("userid","0"));
 
                          return map;
                      }
                  };
-
-                 // Add the request to the RequestQueue.
                  queue.add(stringRequest);
 
 
@@ -202,77 +197,6 @@ public class MyAccount extends AppCompatActivity {
          });
 
 
-        // Passing the sharedPrefrences to use it in to the method
-      //  deletedata(pref);
-    }
-
-//    public void UpdateData(final SharedPreferences pref)
-//    {
-//        update.setOnClickListener(
-//
-//                new View.OnClickListener() {
-//
-//                    @Override
-//
-//                    public void onClick(View v) {
-//                        // We retrieve the userId from SharedPrefrences in the first argument
-//                        boolean updatedata = mydb.updatedata(pref.getInt("userID", -1),UserName.getText().toString(), password.getText().toString(),
-//
-//                                email.getText().toString(),phone.getText().toString(), FirstName.getText().toString(),
-//
-//                                lastName.getText().toString());
-//                        if (updatedata == true) {
-//
-//                            Toast.makeText(MyAccount.this, "Done", Toast.LENGTH_LONG).show();
-//                            startActivity(new Intent(MyAccount.this,
-//                                    CustomerPage.class));
-//                        }
-//
-//                        else
-//                            Toast.makeText(MyAccount.this, "Could Not Edit", Toast.LENGTH_LONG).show();
-//                        startActivity(new Intent(MyAccount.this,
-//                                CustomerPage.class));
-//
-//
-//                    }
-//
-//                }
-//
-//        );
-//
-//    }
-
-
-    //delete:
-
-    public void deletedata(final SharedPreferences pref)
-
-    {
-
-        delete.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-
-                    public void onClick(View v) {
-                        // We retrieve the userId from SharedPrefrences in the first argument
-                        Integer deleteRows = mydb.deletedata(pref.getInt("userID", -1));
-                        if (deleteRows > 0) {
-
-                            Toast.makeText(MyAccount.this, "Topic Deleted  ", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(MyAccount.this,
-                                    OwnerPage.class));
-
-                        }
-                        else
-                            Toast.makeText(MyAccount.this, "Could Not Delete", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(MyAccount.this,
-                                OwnerPage.class));
-
-
-                    }
-
-                }
-        );
     }
 
 

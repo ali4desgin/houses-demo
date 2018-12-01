@@ -18,7 +18,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pc_2018.housing.Adapter.CustomerHouseAdapter;
-import com.example.pc_2018.housing.Adapter.OwnerHouseListAdapter;
+
 import com.example.pc_2018.housing.Models.HouseMod;
 
 import org.json.JSONArray;

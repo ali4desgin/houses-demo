@@ -29,17 +29,10 @@ import java.util.Map;
 
 public class SendMessage extends AppCompatActivity {
 
-    EditText CustomerName;
-    EditText PhoneNumber;
-    EditText Location;
-
-    EditText Email;
-    EditText PlaceNumberRequest;
     EditText Message;
 
     Button Send;
 
-    MessageDataBase mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +40,9 @@ public class SendMessage extends AppCompatActivity {
         setContentView(R.layout.activity_send_message);
         final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        mydb=new MessageDataBase(this);
 
 
-        CustomerName = (EditText) findViewById(R.id.editText19);
-        PhoneNumber = (EditText) findViewById(R.id.editText20);
-        Location = (EditText) findViewById(R.id.editText21);
 
-        Email = (EditText) findViewById(R.id.editText22);
-        PlaceNumberRequest = (EditText) findViewById(R.id.editText23);
         Message = (EditText) findViewById(R.id.MessageID);
 
 
@@ -121,6 +108,7 @@ public class SendMessage extends AppCompatActivity {
                         map.put("ownerID",sharedPref.getString("userid","0"));
                         map.put("cutomerID",sharedPref.getString("userid","0"));
                         map.put("houseID",houseID);
+                        map.put("message",Message.getText().toString());
                         return map;
                     }
                 };
@@ -133,39 +121,6 @@ public class SendMessage extends AppCompatActivity {
         });
 
 
-        //addData();
     }
 
-    public void addData()
-    {
-
-        Send.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                boolean isInserted = mydb.insertContact(CustomerName.getText().toString(), PhoneNumber.getText().toString(),
-
-                        Location.getText().toString(),Email.getText().toString(), PlaceNumberRequest.getText().toString(),
-
-                        Message.getText().toString());
-
-                if (isInserted = true) {
-
-                    Toast.makeText(SendMessage.this, "Done", Toast.LENGTH_LONG).show();
-
-                    startActivity(new Intent(SendMessage.this,
-                            CustomerPage.class));
-
-                }
-
-                else
-                    Toast.makeText(SendMessage.this, "Could Not Add", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(SendMessage.this,
-                        CustomerPage.class));
-
-            }
-        });
-
-    }
 }

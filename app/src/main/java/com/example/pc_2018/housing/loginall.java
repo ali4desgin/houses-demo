@@ -28,8 +28,6 @@ import java.util.Map;
 
 public class loginall extends AppCompatActivity {
 
-    LoginDataBaseAdapter loginDataBaseAdapter;
-    LoginDataBaseAdapter2 loginDataBaseAdapter2;
 
 
     @Override
@@ -42,15 +40,6 @@ public class loginall extends AppCompatActivity {
         final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-
-
-        // create a instance of SQLite Database ()
-        loginDataBaseAdapter=new LoginDataBaseAdapter(this);
-        loginDataBaseAdapter=loginDataBaseAdapter.open();
-
-        // create a instance of SQLite Database ()
-        loginDataBaseAdapter2=new LoginDataBaseAdapter2(this);
-        loginDataBaseAdapter2=loginDataBaseAdapter2.open();
 
         // This is SharedPrefrences which we will store the userId in it
         final SharedPreferences.Editor pref = getApplicationContext().getSharedPreferences("userLogged", MODE_PRIVATE).edit();
@@ -105,15 +94,12 @@ public class loginall extends AppCompatActivity {
 
 
 
-//                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.getString("userid"))).apply();
-//                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
-                                                //Toast.makeText(loginall.this,String.valueOf(jsonObject.getString("user")),Toast.LENGTH_LONG).show();
+//
                                                 JSONObject user = new JSONObject(jsonObject.getString("user"));
-                                                // Toast.makeText(loginall.this,String.valueOf(user.getString("id")),Toast.LENGTH_LONG).show();
+
                                                 sharedPref.edit().putString("userid",user.getString("id")).apply();
                                                 sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
-//                                                Log.i("jsonObject",jsonObject.toString());
-//                                                Log.i("user",user.toString());
+//
 //
                                                 if(user.getString("isOwner").equals("yes")){
                                                     sharedPref.edit().putString("user_type", String.valueOf("owner")).apply();
@@ -125,7 +111,6 @@ public class loginall extends AppCompatActivity {
                                                     Intent intent = new Intent(loginall.this,CustomerPage.class);
                                                     startActivity(intent);
                                                 }
-                                                //    Toast.makeText(loginall.this,String.valueOf(jsonObject.getString("message")),Toast.LENGTH_LONG).show();
 
 
                                             }else{
@@ -138,7 +123,6 @@ public class loginall extends AppCompatActivity {
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-                                        //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
 
 
                                     }
@@ -166,9 +150,6 @@ public class loginall extends AppCompatActivity {
                 });
 
 
-
-
-
                 dialog.show();
 
             }
@@ -176,12 +157,6 @@ public class loginall extends AppCompatActivity {
 
         btnowner.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-
-
-
-
 
 
                 final Dialog dialog = new Dialog(loginall.this);
@@ -220,17 +195,12 @@ public class loginall extends AppCompatActivity {
 
 
 
-//                                                sharedPref.edit().putString("userid", String.valueOf(jsonObject.getString("userid"))).apply();
-//                                                sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
-                                                //Toast.makeText(loginall.this,String.valueOf(jsonObject.getString("user")),Toast.LENGTH_LONG).show();
+//
                                                JSONObject user = new JSONObject(jsonObject.getString("user"));
                                                // Toast.makeText(loginall.this,String.valueOf(user.getString("id")),Toast.LENGTH_LONG).show();
                                                 sharedPref.edit().putString("userid",user.getString("id")).apply();
                                                 sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();
-//                                                Log.i("jsonObject",jsonObject.toString());
-//                                                Log.i("user",user.toString());
-//
-                                                if(user.getString("isOwner").equals("yes")){
+                                            if(user.getString("isOwner").equals("yes")){
                                                     sharedPref.edit().putString("user_type", String.valueOf("owner")).apply();
                                                     Intent intent = new Intent(loginall.this,OwnerPage.class);
                                                     startActivity(intent);
@@ -253,7 +223,7 @@ public class loginall extends AppCompatActivity {
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-                                        //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
+
 
 
                                     }
@@ -273,7 +243,6 @@ public class loginall extends AppCompatActivity {
                             }
                         };
 
-                        // Add the request to the RequestQueue.
                         queue.add(stringRequest);
 
 

@@ -24,13 +24,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 
 public class SignUpowner extends AppCompatActivity {
 
     EditText editTextUserName,editTextPassword,editTextConfirmPassword,editTextemail,editTextphone,editTextFirstName,editTextlastName;
     Button btnCreateAccount;
-    LoginDataBaseAdapter2 loginDataBaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,7 @@ public class SignUpowner extends AppCompatActivity {
 
       //  AndroidNetworking.initialize(getApplicationContext());
 
-        // get Instance  of Database Adapter
-        loginDataBaseAdapter=new LoginDataBaseAdapter2(this);
-        loginDataBaseAdapter=loginDataBaseAdapter.open();
-
-        // Get Refferences of Views
+         // Get Refferences of Views
         editTextUserName=(EditText)findViewById(com.example.pc_2018.housing.R.id.editTextUserName);
         editTextPassword=(EditText)findViewById(com.example.pc_2018.housing.R.id.editTextPassword);
         editTextConfirmPassword=(EditText)findViewById(com.example.pc_2018.housing.R.id.editTextConfirmPassword);
@@ -65,7 +61,7 @@ public class SignUpowner extends AppCompatActivity {
                 // TODO Auto-generated method stub
 
                 final String userName = editTextUserName.getText().toString();
-                String password = editTextPassword.getText().toString();
+                final String password = editTextPassword.getText().toString();
                 String confirmPassword = editTextConfirmPassword.getText().toString();
 
                 final String email = editTextemail.getText().toString();
@@ -88,7 +84,7 @@ public class SignUpowner extends AppCompatActivity {
                     // Save the Data in Database
                     //************* email @ condtions
                     if(isValidEmaillId(email.trim())){
-                        Toast.makeText(getApplicationContext(), "Valid Email Address.", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "Valid Email Address.", Toast.LENGTH_SHORT).show();
 
 
 
@@ -112,8 +108,6 @@ public class SignUpowner extends AppCompatActivity {
                                                 sharedPref.edit().putString("user_active", String.valueOf("yes")).apply();;
                                                 sharedPref.edit().putString("user_type", String.valueOf("owner")).apply();;
 
-
-                                              //  Toast.makeText(SignUpowner.this,String.valueOf(jsonObject.getString("userid")),Toast.LENGTH_LONG).show();
                                                 Intent intent = new Intent(SignUpowner.this,OwnerPage.class);
                                                 startActivity(intent);
 
@@ -127,7 +121,6 @@ public class SignUpowner extends AppCompatActivity {
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-                                        //Toast.makeText(SignUpcustomer.this,response,Toast.LENGTH_LONG).show();
 
 
                                     }
@@ -145,6 +138,7 @@ public class SignUpowner extends AppCompatActivity {
                                 map.put("username",userName);
                                 map.put("phone",phone);
                                 map.put("firstname",FirstName);
+                                map.put("password",password);
                                 map.put("lastname",lastName);
                               //  map.put("placenumber",lastName);
                                 map.put("isOwner", "yes");
@@ -156,9 +150,8 @@ public class SignUpowner extends AppCompatActivity {
                         queue.add(stringRequest);
 
 
-                        loginDataBaseAdapter.insertEntry(userName, password,email,phone,FirstName,lastName);
-                        Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(SignUpowner.this,OwnerPage.class));
+                       // Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
+                        //startActivity(new Intent(SignUpowner.this,OwnerPage.class));
 
                     }else{
                         Toast.makeText(getApplicationContext(), "InValid Email Address.", Toast.LENGTH_SHORT).show();
@@ -184,10 +177,8 @@ public class SignUpowner extends AppCompatActivity {
 
 
     private boolean isValidEmaillId(String email){
-        //Pattern.compile("(.+?)"+"@"+"(.+?)"+"."+"(.+?)").matcher(email).matches()
-        // only gmail , hotmail , yahoo , outlook , mail
-        // only this providers has permissions to create account as owner in the app
-        return true;
+      return   Pattern.compile("(.+?)"+"@"+"(.+?)"+"."+"(.+?)").matcher(email).matches();
+
     }
 
     //*************** end email validation code**************

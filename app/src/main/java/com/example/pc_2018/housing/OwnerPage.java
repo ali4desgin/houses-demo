@@ -12,8 +12,6 @@ import android.widget.Button;
 
 public class OwnerPage extends AppCompatActivity {
 
-    HousingDataBase mydb;
-    MessageDataBase mydb2;
     Button showMessage;
     Button showHouse;
 
@@ -34,8 +32,6 @@ public class OwnerPage extends AppCompatActivity {
 
         showMessage = (Button) findViewById(com.example.pc_2018.housing.R.id.button8);
 
-        mydb=new HousingDataBase(this);
-        mydb2=new MessageDataBase(this);
 
 
 
@@ -70,23 +66,7 @@ public class OwnerPage extends AppCompatActivity {
             }
         });
 
-//        updateHouse.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//
-//                startActivity(new Intent(OwnerPage.this,
-//                        UpdateHouse.class));
-//
-//            }
-//        });
-//
-//        deleteHouse.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//
-//                startActivity(new Intent(OwnerPage.this,
-//                        DeleteHouse.class));
-//
-//            }
-//        });
+
     }
 
 
@@ -164,30 +144,6 @@ public class OwnerPage extends AppCompatActivity {
                         Intent intent = new Intent(OwnerPage.this,Messages.class);
                         startActivity(intent);
 
-//
-//                        Cursor res = mydb2.getData();
-//                        if (res.getCount() == 0) {
-//                            //show message
-//                            ShowMessage("Not Available", "No Data Found");
-//
-//                            return;
-//
-//                        }
-//                        StringBuffer buffer = new StringBuffer();
-//                        while (res.moveToNext()) {
-//                            buffer.append("ID: " + res.getString(0) + "\n");
-//                            buffer.append("CustomerName: " + res.getString(1) + "\n");
-//                            buffer.append("PhoneNumber: " + res.getString(2) + "\n");
-//                            buffer.append("Location: " + res.getString(3) + "\n");
-//                            buffer.append("Email :" + res.getString(4) + "\n");
-//                            buffer.append("PlaceNumberRequest: " + res.getString(5) + "\n");
-//                            buffer.append("Message: " + res.getString(6) + "\n\n");
-//
-//                        }
-//
-//                        // show all data
-//
-//                        ShowMessage2("Message INBOX ", buffer.toString());
 
                     }
 
