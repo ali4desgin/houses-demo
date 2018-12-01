@@ -15,17 +15,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.pc_2018.housing.Const;
 import com.example.pc_2018.housing.EditHouse;
 import com.example.pc_2018.housing.HouseList;
 import com.example.pc_2018.housing.Messages;
 import com.example.pc_2018.housing.Models.HouseMod;
 import com.example.pc_2018.housing.Models.MessageMod;
+import com.example.pc_2018.housing.OwnerPage;
 import com.example.pc_2018.housing.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MessageAdapter extends ArrayAdapter<MessageMod> {
 
@@ -50,7 +63,7 @@ public class MessageAdapter extends ArrayAdapter<MessageMod> {
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.message_item,parent,false);
 
-        MessageMod message = messageList.get(position);
+        final MessageMod message = messageList.get(position);
 
 
        // image.setImageResource(currentMovie.getmImageDrawable());
@@ -71,10 +84,65 @@ public class MessageAdapter extends ArrayAdapter<MessageMod> {
         messageLbl.setText(message.getMessage());
 
 
+        if(message.getIsPayed().equals("1")){
+            deleteBtn.setVisibility(View.INVISIBLE);
+        }
+
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,String.valueOf(position),Toast.LENGTH_LONG).show();
+
+
+                RequestQueue queue = Volley.newRequestQueue(mContext);
+                String url = Const.confirmmessage;
+
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    if (jsonObject.getBoolean("response")){
+
+
+
+                                        Intent intent = new Intent(mContext,OwnerPage.class);
+                                        mContext.startActivity(intent);
+
+                                    }else{
+
+                                        String message = jsonObject.getString("message");
+                                        Toast.makeText(mContext,message,Toast.LENGTH_LONG).show();
+
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String , String> map = new HashMap<>();
+                        map.put("id",String.valueOf(message.getHouseID()));
+
+                        return map;
+                    }
+                };
+
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
             }
         });
 

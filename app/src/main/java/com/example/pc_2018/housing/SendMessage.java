@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pc_2018.housing.Models.MessageMod;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,8 +61,8 @@ public class SendMessage extends AppCompatActivity {
 
 
 
-        Intent intent = getIntent();
-        final String houseID = intent.getStringExtra("id");
+        Bundle intent = getIntent().getExtras();
+         final String houseID = intent.getString("houseID");
         Send= (Button) findViewById(R.id.button19);
 
         Send.setOnClickListener(new View.OnClickListener() {
@@ -67,11 +70,12 @@ public class SendMessage extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                //Toast.makeText(SendMessage.this,"essage",Toast.LENGTH_LONG).show();
+                //Toast.makeText(SendMessage.this,houseID,Toast.LENGTH_LONG).show();
+
                 RequestQueue queue = Volley.newRequestQueue(SendMessage.this);
                 String url = Const.sendmessage;
 
-                // Request a string response from the provided URL.
+
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
@@ -80,12 +84,14 @@ public class SendMessage extends AppCompatActivity {
 
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
+
+
                                     if (jsonObject.getBoolean("response")){
 
+                                        startActivity(new Intent(SendMessage.this,
+                                                CustomerPage.class));
 
-
-                                        Intent intent = new Intent(SendMessage.this,CustomerPage.class);
-                                        startActivity(intent);
+                                       /// Toast.makeText(SendMessage.this,"sEND",Toast.LENGTH_LONG).show();
 
                                     }else{
 
@@ -100,6 +106,8 @@ public class SendMessage extends AppCompatActivity {
 
 
                             }
+
+
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -110,16 +118,16 @@ public class SendMessage extends AppCompatActivity {
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String , String> map = new HashMap<>();
-                        map.put("ownerID",String.valueOf(sharedPref.getString("userid","0")));
-                        map.put("customerID",String.valueOf(sharedPref.getString("userid","0")));
+                        map.put("ownerID",sharedPref.getString("userid","0"));
+                        map.put("cutomerID",sharedPref.getString("userid","0"));
                         map.put("houseID",houseID);
-                        map.put("message",Message.getText().toString());
                         return map;
                     }
                 };
 
                 // Add the request to the RequestQueue.
                 queue.add(stringRequest);
+
 
             }
         });

@@ -90,7 +90,7 @@ public class HouseCutomerList extends AppCompatActivity {
                                     final String place = object.getString("place");
                                     final String housenumber = object.getString("housenumber");
                                     // moviesList.add(new HouseMod(id, "sss", "", "", re));
-
+                                    final String isPayed = object.getString("isPayed");
 
 
                                     RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -99,7 +99,7 @@ public class HouseCutomerList extends AppCompatActivity {
                                                 @Override
                                                 public void onResponse(Bitmap response) {
 
-                                                    moviesList.add(new HouseMod(id, ownerName, place, housenumber, response, price));
+                                                    moviesList.add(new HouseMod(id, ownerName, place, housenumber, response, price,isPayed));
                                                     //  moviesList.notify();
                                                     updateList();
                                                 }
@@ -160,13 +160,6 @@ public class HouseCutomerList extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-//
-//
-//        customerHouseAdapter = new CustomerHouseAdapter(this,moviesList);
-//        listView.setAdapter(customerHouseAdapter);
-//
-//
-//
 
 
 

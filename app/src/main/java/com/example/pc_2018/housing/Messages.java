@@ -49,13 +49,8 @@ public class Messages extends AppCompatActivity {
          messagesList = new ArrayList<>();
 
 
-
         RequestQueue queue = Volley.newRequestQueue(Messages.this);
         String url = Const.messages;
-
-        // Request a string response from the provided URL.
-
-        //  moviesList.add(new HouseMod(1, "ali", "", "", null));
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -75,30 +70,15 @@ public class Messages extends AppCompatActivity {
 
                                 JSONArray jsonArray = new JSONArray(jsonObject.getString("data"));
 
-                                for(int i = 0; i < jsonArray.length() ; i ++){
-
-                                    //JSONObject obj = new JSONObject(jsonArray[i]);
-
-
+                                for(int i = 0; i < jsonArray.length() ; i++){
 
                                     final JSONObject object = jsonArray.getJSONObject(i);
 
-                                     Log.i("xxxxxxx",object.getString("owner"));
-//                                    final String imageUrl = object.getString("image");
-//                                    final int id = object.getInt("id");
-                                //    JSONObject owner = new JSONObject(object.getString("owner"));
-                                    JSONObject customer = new JSONObject(object.getString("customer"));
-                                    JSONObject house = new JSONObject(object.getString("house"));
-//                                    final String ownerName = owner.getString("username");
-//
-//                                    final String price = object.getString("price");
+                                    JSONObject jsonObject1 = new JSONObject(object.getString("house"));
 
-                                    // moviesList.add(new HouseMod(id, "sss", "", "", re));
-
-
-                                    //update();
                                     messagesList.add(new MessageMod(object.getInt("id"),
-                                            object.getString("message") , customer.getString("username"),house.getString("housenumber")));
+                                            jsonObject.getString("message") , jsonObject1.getString("place"), jsonObject1.getString("housenumber"),jsonObject1.getString("isPayed"), jsonObject1.getString("id")));
+
 
                                     update();
 

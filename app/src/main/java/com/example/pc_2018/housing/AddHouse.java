@@ -119,7 +119,13 @@ public class AddHouse extends AppCompatActivity {
 
 
                 Loading.setVisibility(View.VISIBLE);
-                uploadBitmap(bitmap);
+                if(bitmap!=null){
+                    uploadBitmap(bitmap);
+                }else{
+                    Loading.setVisibility(View.INVISIBLE);
+                    Toast.makeText(AddHouse.this,"Plase add image",Toast.LENGTH_LONG).show();
+                }
+
 
 
                 // Request a string response from the provided URL.

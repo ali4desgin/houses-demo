@@ -94,6 +94,7 @@ public class HouseList extends AppCompatActivity {
                                     final String ownerName = owner.getString("username");
 
                                     final String price = object.getString("price");
+                                    final String isPayed = object.getString("isPayed");
 
                                    // moviesList.add(new HouseMod(id, "sss", "", "", re));
 
@@ -105,7 +106,7 @@ public class HouseList extends AppCompatActivity {
                                                 @Override
                                                 public void onResponse(Bitmap response) {
 
-                                                    moviesList.add(new HouseMod(id, ownerName, "", "", response, price));
+                                                    moviesList.add(new HouseMod(id, ownerName, "", "", response, price,isPayed));
                                                   //  moviesList.notify();
                                                     updateList();
                                                 }

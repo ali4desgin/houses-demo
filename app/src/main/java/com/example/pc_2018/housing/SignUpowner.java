@@ -73,7 +73,7 @@ public class SignUpowner extends AppCompatActivity {
                 final String FirstName = editTextFirstName.getText().toString();
                 final String lastName = editTextlastName.getText().toString();
 
-
+                //final String plsce =    Place.getText().toString();
 
                 // check if any of the fields are vaccant
                 if (userName.equals("") || password.equals("") || confirmPassword.equals("")) {
@@ -146,6 +146,7 @@ public class SignUpowner extends AppCompatActivity {
                                 map.put("phone",phone);
                                 map.put("firstname",FirstName);
                                 map.put("lastname",lastName);
+                              //  map.put("placenumber",lastName);
                                 map.put("isOwner", "yes");
                                 return map;
                             }

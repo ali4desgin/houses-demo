@@ -3,6 +3,7 @@ package com.example.pc_2018.housing.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,9 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.pc_2018.housing.EditHouse;
 import com.example.pc_2018.housing.Models.HouseMod;
 import com.example.pc_2018.housing.R;
 import com.example.pc_2018.housing.SendMessage;
@@ -32,6 +31,7 @@ public class CustomerHouseAdapter extends ArrayAdapter<HouseMod> {
         super(context, 0 , list);
         mContext = context;
         moviesList = list;
+
     }
 
     @NonNull
@@ -45,22 +45,40 @@ public class CustomerHouseAdapter extends ArrayAdapter<HouseMod> {
 
            ImageView image = (ImageView)listItem.findViewById(R.id.imageView_poster);
            image.setImageBitmap(currentHouse.getImage());
-//        image.setImageResource(currentHouse.getmImageDrawable());
-//
+
         TextView name = (TextView) listItem.findViewById(R.id.textView_name);
-        name.setText(currentHouse.getHpuseNumber());
+        name.setText(currentHouse.getPlace());
 
         Button requestBtn = (Button) listItem.findViewById(R.id.requestBtn);
+
+
+         final SharedPreferences sharedPref = mContext.getSharedPreferences(
+                mContext.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+
+
+        if(!sharedPref.getString("userid","0").equals("0") && currentHouse.getIsPayed().equals("0")){
+            requestBtn.setVisibility(View.VISIBLE);
+        }
+
         requestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intent = new Intent(mContext,SendMessage.class);
-                intent.putExtra("id",currentHouse.getId());
+                intent.putExtra("houseID",String.valueOf(currentHouse.getId()));
                 mContext.startActivity(intent);
-                //Toast.makeText(mContext,String.valueOf(position),Toast.LENGTH_LONG).show();
             }
         });
 
+
+        TextView textView9 = (TextView) listItem.findViewById(R.id.textView9);
+
+        if(currentHouse.getIsPayed().equals("1")){
+            textView9.setText("Already Payed");
+            requestBtn.setVisibility(View.INVISIBLE);
+        }
           TextView release = (TextView) listItem.findViewById(R.id.textView_release);
          release.setText(currentHouse.getHpuseNumber());
 

@@ -2,7 +2,7 @@ package com.example.pc_2018.housing;
 
 public class Const {
 
-   public static String base_url = "http://house200.000webhostapp.com/api/";
+   public static String base_url = "http://10.0.2.2/project/api/";
 
 
    // users route
@@ -22,5 +22,6 @@ public class Const {
    public static String deleteuser = base_url + "deleteuser.php";
 
    public static String sendmessage = base_url + "sendmessage.php";
+   public static String confirmmessage = base_url + "confirmmessage.php";
 
 }

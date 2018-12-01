@@ -6,12 +6,16 @@ public class MessageMod  {
     private String message;
     private String username;
     private String house_number;
+    private String isPayed;
 
-    public MessageMod(int id, String message, String username, String house_number) {
+    private  String getHouseID;
+    public MessageMod(int id, String message, String username, String house_number,String isPayed, String  getHouseID) {
         this.id = id;
+        this.isPayed = isPayed;
         this.message = message;
         this.username = username;
         this.house_number = house_number;
+        this.getHouseID = getHouseID;
     }
 
     public void setId(int id) {
@@ -38,6 +42,14 @@ public class MessageMod  {
 
     public String getMessage() {
         return message;
+    }
+    public String getHouseID() {
+        return getHouseID;
+    }
+
+
+    public String getIsPayed() {
+        return isPayed;
     }
 
 
