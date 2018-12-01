@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,14 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pc_2018.housing.Adapter.VolleyMultiPart;
 
@@ -79,18 +73,18 @@ public class AddHouse extends AppCompatActivity {
 
 
 
-        Place = (EditText) findViewById(R.id.editText3);
-        HouseName = (EditText) findViewById(R.id.editText5);
-        HouseNumber = (EditText) findViewById(R.id.editText6);
+        Place = (EditText) findViewById(R.id.Place);
+        HouseName = (EditText) findViewById(R.id.Housename);
+        HouseNumber = (EditText) findViewById(R.id.Housenumber);
 
-        Type = (EditText) findViewById(R.id.editText9);
-        Price = (EditText) findViewById(R.id.editText10);
+        Type = (EditText) findViewById(R.id.Type);
+        Price = (EditText) findViewById(R.id.Price);
         State = (EditText) findViewById(R.id.editText11);
 
         imageView2 = (ImageView) findViewById(R.id.imageView2);
         activity_add_house = (RelativeLayout) findViewById(R.id.activity_add_house);
 
-        add= (Button) findViewById(R.id.button12);
+        add= (Button) findViewById(R.id.Edit);
         uploadBtn= (Button) findViewById(R.id.uploadBtn);
 
         addData();

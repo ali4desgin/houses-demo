@@ -83,8 +83,8 @@ public class OwnerHouseListAdapter  extends ArrayAdapter<HouseMod> {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,SendMessage.class);
-                intent.putExtra("id",position);
+                Intent intent = new Intent(mContext,EditHouse.class);
+                intent.putExtra("houseID",String.valueOf(currentMovie.getId()));
                 mContext.startActivity(intent);
                // Toast.makeText(mContext,String.valueOf(position),Toast.LENGTH_LONG).show();
             }
